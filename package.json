@@ -16,15 +16,15 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
   ],
-  "dependencies": {},
   "files": [
     "index.js"
   ],
+  "dependencies": {},
   "devDependencies": {
-    "browserify": "^11.0.0",
+    "browserify": "^13.0.0",
     "esmangle": "^1.0.0",
-    "istanbul": "^0.3.0",
-    "mocha": "^2.0.0",
+    "istanbul": "^0.4.0",
+    "mocha": "^3.0.0",
     "remark": "^6.0.0",
     "remark-cli": "^2.1.0",
     "remark-preset-wooorm": "^1.0.0",
