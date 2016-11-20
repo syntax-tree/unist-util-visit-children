@@ -1,32 +1,29 @@
 'use strict';
 
-/* eslint-env mocha */
-
-/* Dependencies. */
-var assert = require('assert');
+var test = require('tape');
 var visitChildren = require('./');
 
 var noop = Function.prototype;
 
 /* Tests. */
-describe('visitChildren()', function () {
-  it('should throw when no `parent` is given', function () {
-    assert.throws(
-      function () {
-        visitChildren(noop)();
-      },
-      /Missing children in `parent`/
-    );
+test('visitChildren()', function (t) {
+  t.throws(
+    function () {
+      visitChildren(noop)();
+    },
+    /Missing children in `parent`/,
+    'should throw without arguments'
+  );
 
-    assert.throws(
-      function () {
-        visitChildren(noop)({});
-      },
-      /Missing children in `parent`/
-    );
-  });
+  t.throws(
+    function () {
+      visitChildren(noop)({});
+    },
+    /Missing children in `parent`/,
+    'should throw without parent'
+  );
 
-  it('should invoke `fn` for each child in `parent`', function () {
+  t.test('should invoke `fn` for each child in `parent`', function (st) {
     var values = [0, 1, 2, 3];
     var context = {};
     var n = -1;
@@ -35,13 +32,15 @@ describe('visitChildren()', function () {
 
     visitChildren(function (value, index, parent) {
       n++;
-      assert.strictEqual(value, values[n]);
-      assert.strictEqual(index, n);
-      assert.strictEqual(parent, context);
+      st.strictEqual(value, values[n]);
+      st.strictEqual(index, n);
+      st.strictEqual(parent, context);
     })(context);
+
+    st.end();
   });
 
-  it('should work when new children are added', function () {
+  t.test('should work when new children are added', function (st) {
     var values = [0, 1, 2, 3, 4, 5, 6];
     var n = -1;
 
@@ -52,10 +51,12 @@ describe('visitChildren()', function () {
         parent.children.push(parent.children.length);
       }
 
-      assert.strictEqual(value, values[n]);
-      assert.strictEqual(index, values[n]);
-    })({
-      children: [0, 1, 2, 3]
-    });
+      st.strictEqual(value, values[n]);
+      st.strictEqual(index, values[n]);
+    })({children: [0, 1, 2, 3]});
+
+    st.end();
   });
+
+  t.end();
 });
