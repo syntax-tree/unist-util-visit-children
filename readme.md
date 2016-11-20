@@ -1,86 +1,88 @@
-# unist-util-visit-children [![Build Status](https://img.shields.io/travis/wooorm/unist-util-visit-children.svg)](https://travis-ci.org/wooorm/unist-util-visit-children) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/unist-util-visit-children.svg)](https://codecov.io/github/wooorm/unist-util-visit-children)
+# unist-util-visit-children [![Build Status][build-badge]][build-page] [![Coverage Status][coverage-badge]][coverage-page]
 
-[Unist](https://github.com/wooorm/unist) ([mdast](https://github.com/wooorm/mdast/blob/master/doc/mdastnode.7.md),
-[retext](https://github.com/wooorm/retext)) utility to visit direct children of
-a parent. As in, wrap `fn` so it accepts a parent and invoke `fn` for each of
-its children.
+[Unist][] direct child visitor.
 
 ## Installation
 
-[npm](https://docs.npmjs.com/cli/install):
+[npm][]:
 
 ```bash
 npm install unist-util-visit-children
 ```
 
-**unist-util-visit-children** is also available for [bower](http://bower.io/#install-packages),
-[component](https://github.com/componentjs/component), and
-[duo](http://duojs.org/#getting-started), and as an AMD, CommonJS, and globals
-module, [uncompressed](unist-util-visit-children.js) and [compressed](unist-util-visit-children.min.js).
-
 ## Usage
 
-```js
+```javascript
+var remark = require('remark');
 var visitChildren = require('unist-util-visit-children');
-var visitor = visitChildren(console.log.bind(console));
 
-var parent = {
-    'type': 'foo',
-    'children': [
-        { 'type': 'bar', 'value': 'alpha' },
-        { 'type': 'bar', 'value': 'bravo' },
-        { 'type': 'bar', 'value': 'charlie' }
-    ]
-};
+var visit = visitChildren(console.log);
 
-visitor(parent);
-/*
- * { 'type': 'bar', 'value': 'alpha' }
- * { 'type': 'bar', 'value': 'bravo' }
- * { 'type': 'bar', 'value': 'charlie' }
- */
+remark().use(plugin).process('Some _emphasis_, **importance**, and `code`.');
+
+function plugin() {
+  return transformer;
+  function transformer(tree) {
+    visit(tree.children[0]);
+  }
+}
+```
+
+Yields:
+
+```js
+{ type: 'text', value: 'Some ' }
+{ type: 'emphasis',
+  children: [ { type: 'text', value: 'emphasis' } ] }
+{ type: 'text', value: ', ' }
+{ type: 'strong',
+  children: [ { type: 'text', value: 'importance' } ] }
+{ type: 'text', value: ', and ' }
+{ type: 'inlineCode', value: 'code' }
+{ type: 'text', value: '.' }
 ```
 
 ## API
 
-### visitChildren(fn)
+### `visit = visitChildren(visitor)`
 
-**Parameters**
+Wrap [`visitor`][visitor] to be invoked for each child in the node given to
+[`visit`][visit].
 
-*   `fn` ([`Function`](#function-fnchild-index-parent))
-    — Function to wrap.
+#### `function visitor(child, index, parent)`
 
-**Return**
+Invoked if [`visit`][visit] is called on a parent node for each `child`
+in `parent`.
 
-[`Function`](#function-visitorparent) — Wrapped `fn`.
+#### `function visit(parent)`
 
-#### function fn(child, index, parent)
-
-Visitor for children of `parent`.
-
-**Parameters**
-
-*   `child` ([`Node`](https://github.com/wooorm/unist##unist-nodes))
-    — Current iteration;
-
-*   `index` (`number`) — Position of `child` in `parent`;
-
-*   `parent` ([`Node`](https://github.com/wooorm/unist##unist-nodes))
-    — Parent node of `child`.
-
-#### function visitor(parent)
-
-Function invoking `fn` for each child of `parent`.
-
-**Parameters**
-
-*   `parent` ([`Node`](https://github.com/wooorm/unist##unist-nodes))
-    — Node with children.
-
-**Throws**
-
-*   `Error` — When not given a parent node.
+Invoke the bound [`visitor`][visitor] for each child in `parent`
+([`Node`][node]).
 
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[MIT][license] © [Titus Wormer][author]
+
+<!-- Definition -->
+
+[build-badge]: https://img.shields.io/travis/wooorm/unist-util-visit-children.svg
+
+[build-page]: https://travis-ci.org/wooorm/unist-util-visit-children
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/unist-util-visit-children.svg
+
+[coverage-page]: https://codecov.io/github/wooorm/unist-util-visit-children?branch=master
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[license]: LICENSE
+
+[author]: http://wooorm.com
+
+[unist]: https://github.com/wooorm/unist
+
+[node]: https://github.com/wooorm/unist#node
+
+[visit]: #function-visitparent
+
+[visitor]: #function-visitorchild-index-parent
