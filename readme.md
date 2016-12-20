@@ -65,13 +65,13 @@ Invoke the bound [`visitor`][visitor] for each child in `parent`
 
 <!-- Definition -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/unist-util-visit-children.svg
+[build-badge]: https://img.shields.io/travis/syntax-tree/unist-util-visit-children.svg
 
-[build-page]: https://travis-ci.org/wooorm/unist-util-visit-children
+[build-page]: https://travis-ci.org/syntax-tree/unist-util-visit-children
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/unist-util-visit-children.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/unist-util-visit-children.svg
 
-[coverage-page]: https://codecov.io/github/wooorm/unist-util-visit-children?branch=master
+[coverage-page]: https://codecov.io/github/syntax-tree/unist-util-visit-children?branch=master
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -79,9 +79,9 @@ Invoke the bound [`visitor`][visitor] for each child in `parent`
 
 [author]: http://wooorm.com
 
-[unist]: https://github.com/wooorm/unist
+[unist]: https://github.com/syntax-tree/unist
 
-[node]: https://github.com/wooorm/unist#node
+[node]: https://github.com/syntax-tree/unist#node
 
 [visit]: #function-visitparent
 
