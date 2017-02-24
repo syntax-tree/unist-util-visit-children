@@ -18,7 +18,7 @@ var visitChildren = require('unist-util-visit-children');
 
 var visit = visitChildren(console.log);
 
-remark().use(plugin).process('Some _emphasis_, **importance**, and `code`.');
+remark().use(plugin).processSync('Some _emphasis_, **importance**, and `code`.');
 
 function plugin() {
   return transformer;
