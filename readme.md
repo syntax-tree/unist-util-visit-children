@@ -13,17 +13,19 @@ npm install unist-util-visit-children
 ## Usage
 
 ```javascript
-var remark = require('remark');
-var visitChildren = require('unist-util-visit-children');
+var remark = require('remark')
+var visitChildren = require('unist-util-visit-children')
 
-var visit = visitChildren(console.log);
+var visit = visitChildren(console.log)
 
-remark().use(plugin).processSync('Some _emphasis_, **importance**, and `code`.');
+remark()
+  .use(plugin)
+  .processSync('Some _emphasis_, **importance**, and `code`.')
 
 function plugin() {
-  return transformer;
+  return transformer
   function transformer(tree) {
-    visit(tree.children[0]);
+    visit(tree.children[0])
   }
 }
 ```
