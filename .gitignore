@@ -5,3 +5,4 @@ coverage/
 node_modules/
 unist-util-visit-children.js
 unist-util-visit-children.min.js
+yarn.lock
