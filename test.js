@@ -1,11 +1,10 @@
 'use strict';
 
 var test = require('tape');
-var visitChildren = require('./');
+var visitChildren = require('.');
 
 var noop = Function.prototype;
 
-/* Tests. */
 test('visitChildren()', function (t) {
   t.throws(
     function () {
