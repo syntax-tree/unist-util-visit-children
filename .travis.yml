@@ -1,15 +1,15 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: kQQDqQBicITH6D5Rg9CBNt2qD/CMsnW9eWDS8gHJkvkJIcHThxQgC0++nnAXv+CViCgIwKOTbS1PvOOJh5ENS2CT/1YjhXm/jfNNI8TKmFMUUSfg29xvW+EGLWUaMoXsORebdJzkd/m4iIwAF/QlBvIypQGzMJ7a77elcy1FWI4+7pTqo8RYwKM51CD/bpDlp0rYloa9zmp5mfMjWumgL0vsmycNZJZ6eQVDtP5OEM1/aN7FG/tkEa/lKmaOB9E07S8idx5bPK6r3zhyrgli02NjLJcMDwtQsdJwuPMypaCpRsTvWv4NS6vs6hHJmsx3Cm05rPhUyPMTyEM0T1u8XPk/ZEJKDuwEEIiOwQpq7VbYQNOaPvmSfa0tChnooXlv65RN2jiS0M8zqfdMhUtVVcvonP0HjqF2R+obny1UdPymPb5x4jsXTKEsFLY7SuZg0wQ3UyCvwMN6U2vhBrKvFz5iBsUrVSBLOrGzetzn1xVGMTUED6Rm9c7wez9g+SevzLZqs1uewgNHTXdLoQamf47FitMzcOD1+v5zpjWAY76coyUIaADdRsIR0I1Ga9XQvoa7lNerp83lBs8SNAoVs4g58N3EkRcdH+kYk2MJqkUeX/WPspxjia10zz0GMiyPgcQNuuhiCvt66Fcoha167YG4AOmBXkWi8ISF1OxI+x4=
+    secure: AibpxnmOOUzDpxJPbFivN5kKUNNP5H4xxfvjYaJPUgzWtscoQzI30TBSSIAgczb8RXa7cEIut5swKi797grvLlfxQeDTAhrnfPFhlL8mLOztgvgW4Rh54q/6iXCXE7kYhlFC9ULJb7aC0Hn3wkjU2AsmlJuw2vrBjL6eFOHJEIhY5OM5wqaWdKjY6/Pv0WlhjAQHVretvdWAc6i2xjHFo9IemmDeACpBsD1qd0FFqZMvewZhWgBbFuT8zYG8EKZm3HgTcZgLs6Occxy8tMkpBgSUdhpAVLq2D/RkmFF/aV4R6d42gUdT5sAGJp02yF/ISPbLZ/zYFnhbW10EQ5vtyrC2kkZ9d34+TUCZMrRLyV04v3o5gFMWVou+MpTet8RmditQJKn5cmLzbxNxQTeo9JLvZOUhQ6UdmV+7OCJs1159xl56HFCDMzMpA+qQXnHy7jPtdBgH2Pl3gc7rUtyNZ1yaYAgfIY1OfsB/qscdZoDVWKEy48u9JxN4GkSqlsLh/ZzDrjHv5wMC5rizBwb98g+UckfNBp6AHs49NHBUde0Ll8WvZLf3fFhrfBljZ9ryQSum82W1NHTPf5hywE14ZpUjL5kgtggLJOtbU8Jex9lu5ju1qPsfovJIHb/qxISxXQcs6FpIbYJffvMCpYb6CIU/2qrTQeH9v9m0VGqlAIc=
   file:
-    - "unist-util-visit-children.js"
-    - "unist-util-visit-children.min.js"
+    - 'unist-util-visit-children.js'
+    - 'unist-util-visit-children.min.js'
   on:
     tags: true
