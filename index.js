@@ -1,13 +1,11 @@
 'use strict'
 
-/* Expose. */
-module.exports = visitorFactory
+module.exports = visitChildren
 
-/* Turns `callback` into a child-visitor accepting a parent. */
-function visitorFactory(callback) {
+function visitChildren(callback) {
   return visitor
 
-  /* Visit `parent`, invoking `callback` for each child. */
+  // Visit `parent`, invoking `callback` for each child.
   function visitor(parent) {
     var index = -1
     var children = parent && parent.children
