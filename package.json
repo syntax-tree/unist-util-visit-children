@@ -57,9 +57,7 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "guard-for-in": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off"
+      "guard-for-in": "off"
     },
     "ignores": [
       "unist-util-visit-children.js"
