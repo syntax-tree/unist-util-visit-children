@@ -5,66 +5,65 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-[Unist][] direct child visitor.
+[**unist**][unist] direct child visitor.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install unist-util-visit-children
 ```
 
 ## Usage
 
-```javascript
-var remark = require('remark')
+```js
+var u = require('unist-builder')
 var visitChildren = require('unist-util-visit-children')
 
-var visit = visitChildren(console.log)
+var visit = visitChildren(function(node) {
+  console.log(node)
+})
 
-remark()
-  .use(plugin)
-  .processSync('Some _emphasis_, **importance**, and `code`.')
+var tree = u('tree', [
+  u('leaf', 'leaf 1'),
+  u('node', [u('leaf', 'leaf 2'), u('leaf', 'leaf 3')]),
+  u('leaf', 'leaf 4'),
+  u('void')
+])
 
-function plugin() {
-  return transformer
-  function transformer(tree) {
-    visit(tree.children[0])
-  }
-}
+visit(tree)
 ```
 
 Yields:
 
 ```js
-{ type: 'text', value: 'Some ' }
-{ type: 'emphasis',
-  children: [ { type: 'text', value: 'emphasis' } ] }
-{ type: 'text', value: ', ' }
-{ type: 'strong',
-  children: [ { type: 'text', value: 'importance' } ] }
-{ type: 'text', value: ', and ' }
-{ type: 'inlineCode', value: 'code' }
-{ type: 'text', value: '.' }
+{ type: 'leaf', value: 'leaf 1' }
+{
+  type: 'node',
+  children: [
+    { type: 'leaf', value: 'leaf 2' },
+    { type: 'leaf', value: 'leaf 3' }
+  ]
+}
+{ type: 'leaf', value: 'leaf 4' }
+{ type: 'void' }
 ```
 
 ## API
 
 ### `visit = visitChildren(visitor)`
 
-Wrap [`visitor`][visitor] to be invoked for each child in the node given to
-[`visit`][visit].
+Wrap [`visitor`][visitor] to be invoked for each [child][] in the nodes later
+given to [`visit`][visit].
 
 #### `function visitor(child, index, parent)`
 
-Invoked if [`visit`][visit] is called on a parent node for each `child`
-in `parent`.
+Invoked if [`visit`][visit] is called on a [parent][] node for each [child][].
 
 #### `function visit(parent)`
 
-Invoke the bound [`visitor`][visitor] for each child in `parent`
-([`Node`][node]).
+Invoke [`visitor`][visitor] for each [child][] of the [parent][].
 
 ## Related
 
@@ -83,11 +82,13 @@ Invoke the bound [`visitor`][visitor] for each child in `parent`
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/unist`][contributing] for ways to get
+See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -119,12 +120,16 @@ repository, organisation, or community you agree to abide by its terms.
 
 [unist]: https://github.com/syntax-tree/unist
 
-[node]: https://github.com/syntax-tree/unist#node
+[parent]: https://github.com/syntax-tree/unist#parent-1
+
+[child]: https://github.com/syntax-tree/unist#child
 
 [visit]: #function-visitparent
 
 [visitor]: #function-visitorchild-index-parent
 
-[contributing]: https://github.com/syntax-tree/unist/blob/master/contributing.md
+[contributing]: https://github.com/syntax-tree/.github/blob/master/contributing.md
 
-[coc]: https://github.com/syntax-tree/unist/blob/master/code-of-conduct.md
+[support]: https://github.com/syntax-tree/.github/blob/master/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
