@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**unist**][unist] direct child visitor.
+[**unist**][unist] utility to visit direct children of a parent.
 
 ## Install
 
@@ -18,7 +18,7 @@
 npm install unist-util-visit-children
 ```
 
-## Usage
+## Use
 
 ```js
 var u = require('unist-builder')
@@ -41,16 +41,16 @@ visit(tree)
 Yields:
 
 ```js
-{ type: 'leaf', value: 'leaf 1' }
+{type: 'leaf', value: 'leaf 1'}
 {
   type: 'node',
   children: [
-    { type: 'leaf', value: 'leaf 2' },
-    { type: 'leaf', value: 'leaf 3' }
+    {type: 'leaf', value: 'leaf 2'},
+    {type: 'leaf', value: 'leaf 3'}
   ]
 }
-{ type: 'leaf', value: 'leaf 4' }
-{ type: 'void' }
+{type: 'leaf', value: 'leaf 4'}
+{type: 'void'}
 ```
 
 ## API
@@ -78,6 +78,19 @@ Invoke [`visitor`][visitor] for each [child][] of the [parent][].
     — Create a new tree with all nodes that pass a test
 *   [`unist-util-map`](https://github.com/syntax-tree/unist-util-map)
     — Create a new tree with all nodes mapped by a given function
+*   [`unist-util-flatmap`](https://gitlab.com/staltz/unist-util-flatmap)
+    — Create a new tree by mapping (to an array) with the provided function and
+    then flattening
+*   [`unist-util-find-all-after`](https://github.com/syntax-tree/unist-util-find-all-after)
+    — Find nodes after another node
+*   [`unist-util-find-all-before`](https://github.com/syntax-tree/unist-util-find-all-before)
+    — Find nodes before another node
+*   [`unist-util-find-after`](https://github.com/syntax-tree/unist-util-find-after)
+    — Find a node after another node
+*   [`unist-util-find-before`](https://github.com/syntax-tree/unist-util-find-before)
+    — Find a node before another node
+*   [`unist-util-find-all-between`](https://github.com/mrzmmr/unist-util-find-all-between)
+    — Find all nodes between two nodes
 *   [`unist-util-remove`](https://github.com/eush77/unist-util-remove)
     — Remove nodes from a tree that pass a test
 *   [`unist-util-select`](https://github.com/eush77/unist-util-select)
