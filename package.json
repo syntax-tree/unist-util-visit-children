@@ -1,10 +1,11 @@
 {
   "name": "unist-util-visit-children",
   "version": "1.1.4",
-  "description": "utility to visit direct children of a parent",
+  "description": "unist utility to visit direct children of a parent",
   "license": "MIT",
   "keywords": [
     "unist",
+    "unist-util",
     "util",
     "utility",
     "visit",
