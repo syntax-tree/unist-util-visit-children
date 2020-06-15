@@ -74,13 +74,12 @@ Invoke [`visitor`][visitor] for each [child][] of the [parent][].
     — Recursively walk over nodes
 *   [`unist-util-visit-parents`](https://github.com/syntax-tree/unist-util-visit-parents)
     — Like `visit`, but with a stack of parents
-*   [`unist-util-filter`](https://github.com/eush77/unist-util-filter)
+*   [`unist-util-filter`](https://github.com/syntax-tree/unist-util-filter)
     — Create a new tree with all nodes that pass a test
 *   [`unist-util-map`](https://github.com/syntax-tree/unist-util-map)
     — Create a new tree with all nodes mapped by a given function
 *   [`unist-util-flatmap`](https://gitlab.com/staltz/unist-util-flatmap)
-    — Create a new tree by mapping (to an array) with the provided function and
-    then flattening
+    — Create a new tree by mapping (to an array) with the given function
 *   [`unist-util-find-all-after`](https://github.com/syntax-tree/unist-util-find-all-after)
     — Find nodes after another node
 *   [`unist-util-find-all-before`](https://github.com/syntax-tree/unist-util-find-all-before)
@@ -91,9 +90,9 @@ Invoke [`visitor`][visitor] for each [child][] of the [parent][].
     — Find a node before another node
 *   [`unist-util-find-all-between`](https://github.com/mrzmmr/unist-util-find-all-between)
     — Find all nodes between two nodes
-*   [`unist-util-remove`](https://github.com/eush77/unist-util-remove)
+*   [`unist-util-remove`](https://github.com/syntax-tree/unist-util-remove)
     — Remove nodes from a tree that pass a test
-*   [`unist-util-select`](https://github.com/eush77/unist-util-select)
+*   [`unist-util-select`](https://github.com/syntax-tree/unist-util-select)
     — Select nodes with CSS-like selectors
 
 ## Contribute
