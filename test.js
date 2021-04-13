@@ -6,6 +6,7 @@ function noop() {}
 test('visitChildren()', function (t) {
   t.throws(
     function () {
+      // @ts-ignore runtime.
       visitChildren(noop)()
     },
     /Missing children in `parent`/,
@@ -14,22 +15,26 @@ test('visitChildren()', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       visitChildren(noop)({})
     },
     /Missing children in `parent`/,
     'should throw without parent'
   )
 
-  t.test('should invoke `fn` for each child in `parent`', function (st) {
-    var values = [0, 1, 2, 3]
-    var context = {}
+  t.test('should call `fn` for each child in `parent`', function (st) {
+    var children = [
+      {type: 'x', value: 0},
+      {type: 'x', value: 1},
+      {type: 'x', value: 2},
+      {type: 'x', value: 3}
+    ]
+    var context = {type: 'y', children}
     var n = -1
 
-    context.children = values
-
-    visitChildren(function (value, index, parent) {
+    visitChildren(function (child, index, parent) {
       n++
-      st.strictEqual(value, values[n])
+      st.strictEqual(child, children[n])
       st.strictEqual(index, n)
       st.strictEqual(parent, context)
     })(context)
@@ -38,19 +43,35 @@ test('visitChildren()', function (t) {
   })
 
   t.test('should work when new children are added', function (st) {
-    var values = [0, 1, 2, 3, 4, 5, 6]
+    var children = [
+      {type: 'x', value: 0},
+      {type: 'x', value: 1},
+      {type: 'x', value: 2},
+      {type: 'x', value: 3},
+      {type: 'x', value: 4},
+      {type: 'x', value: 5},
+      {type: 'x', value: 6}
+    ]
     var n = -1
 
-    visitChildren(function (value, index, parent) {
+    visitChildren(function (child, index, parent) {
       n++
 
       if (index < 3) {
-        parent.children.push(parent.children.length)
+        parent.children.push({type: 'x', value: parent.children.length})
       }
 
-      st.strictEqual(value, values[n])
-      st.strictEqual(index, values[n])
-    })({children: [0, 1, 2, 3]})
+      st.deepEqual(child, children[n])
+      st.deepEqual(index, n)
+    })({
+      type: 'y',
+      children: [
+        {type: 'x', value: 0},
+        {type: 'x', value: 1},
+        {type: 'x', value: 2},
+        {type: 'x', value: 3}
+      ]
+    })
 
     st.end()
   })

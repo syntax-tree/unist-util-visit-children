@@ -63,16 +63,16 @@ There is no default export.
 
 ### `visit = visitChildren(visitor)`
 
-Wrap [`visitor`][visitor] to be invoked for each [child][] in the nodes later
+Wrap [`visitor`][visitor] to be called for each [child][] in the nodes later
 given to [`visit`][visit].
 
 #### `function visitor(child, index, parent)`
 
-Invoked if [`visit`][visit] is called on a [parent][] node for each [child][].
+Called if [`visit`][visit] is called on a [parent][] node for each [child][].
 
 #### `function visit(parent)`
 
-Invoke [`visitor`][visitor] for each [child][] of the [parent][].
+Called [`visitor`][visitor] for each [child][] of the [parent][].
 
 ## Related
 
