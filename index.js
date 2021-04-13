@@ -1,8 +1,4 @@
-'use strict'
-
-module.exports = visitChildren
-
-function visitChildren(callback) {
+export function visitChildren(callback) {
   return visitor
 
   // Visit `parent`, invoking `callback` for each child.

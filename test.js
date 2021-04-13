@@ -1,9 +1,7 @@
-'use strict'
+import test from 'tape'
+import {visitChildren} from './index.js'
 
-var test = require('tape')
-var visitChildren = require('.')
-
-var noop = Function.prototype
+function noop() {}
 
 test('visitChildren()', function (t) {
   t.throws(

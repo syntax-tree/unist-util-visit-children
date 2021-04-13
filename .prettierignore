@@ -1,5 +1,2 @@
 coverage/
-unist-util-visit-children.js
-unist-util-visit-children.min.js
-*.json
 *.md
