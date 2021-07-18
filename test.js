@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('unist').Node} Node
+ * @typedef {import('unist').Literal<number>} ExampleLiteral
+ * @typedef {import('unist').Parent<ExampleLiteral>} ExampleParent
+ */
+
 import test from 'tape'
 import {visitChildren} from './index.js'
 
@@ -6,7 +12,7 @@ function noop() {}
 test('visitChildren()', function (t) {
   t.throws(
     function () {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       visitChildren(noop)()
     },
     /Missing children in `parent`/,
@@ -15,7 +21,7 @@ test('visitChildren()', function (t) {
 
   t.throws(
     function () {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       visitChildren(noop)({})
     },
     /Missing children in `parent`/,
@@ -32,7 +38,11 @@ test('visitChildren()', function (t) {
     var context = {type: 'y', children}
     var n = -1
 
-    visitChildren(function (child, index, parent) {
+    visitChildren(function (
+      /** @type {ExampleLiteral} */ child,
+      index,
+      /** @type {ExampleParent} */ parent
+    ) {
       n++
       st.strictEqual(child, children[n])
       st.strictEqual(index, n)
@@ -54,7 +64,11 @@ test('visitChildren()', function (t) {
     ]
     var n = -1
 
-    visitChildren(function (child, index, parent) {
+    visitChildren(function (
+      /** @type {ExampleLiteral} */ child,
+      index,
+      /** @type {ExampleParent} */ parent
+    ) {
       n++
 
       if (index < 3) {
@@ -63,15 +77,17 @@ test('visitChildren()', function (t) {
 
       st.deepEqual(child, children[n])
       st.deepEqual(index, n)
-    })({
-      type: 'y',
-      children: [
-        {type: 'x', value: 0},
-        {type: 'x', value: 1},
-        {type: 'x', value: 2},
-        {type: 'x', value: 3}
-      ]
-    })
+    })(
+      /** @type {ExampleParent} */ ({
+        type: 'y',
+        children: [
+          {type: 'x', value: 0},
+          {type: 'x', value: 1},
+          {type: 'x', value: 2},
+          {type: 'x', value: 3}
+        ]
+      })
+    )
 
     st.end()
   })
