@@ -3,14 +3,22 @@
  * @typedef {import('unist').Node} Node
  *
  * @callback Visitor
+ *   Callback called for each `child` in `parent` later given to `visit`.
  * @param {Node} node
+ *   Child of `parent`.
  * @param {number} index
+ *   Position of `child` in `parent`.
  * @param {Parent} parent
+ *   Parent node.
  * @returns {void}
+ *   Nothing.
  *
  * @callback Visit
+ *   Function to call the bound `visitor` for each child in `parent`.
  * @param {Parent} node
+ *   Parent node.
  * @returns {void}
+ *   Nothing.
  */
 
 /**
@@ -18,20 +26,17 @@
  * `visit`.
  *
  * @param {Visitor} visitor
+ *   Callback called for each `child` in `parent` later given to `visit`.
  * @returns {Visit}
+ *   Function to call the bound `visitor` for each child in `parent`.
  */
 export function visitChildren(visitor) {
   return visit
 
-  /**
-   * Visit `parent`, calling `visitor` for each child.
-   *
-   * @param {Parent} parent
-   * @returns {void}
-   */
+  /** @type {Visit} */
   function visit(parent) {
-    var index = -1
-    var children = parent && parent.children
+    const children = parent && parent.children
+    let index = -1
 
     if (!children) {
       throw new Error('Missing children in `parent` for `visit`')

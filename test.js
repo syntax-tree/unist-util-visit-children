@@ -29,14 +29,14 @@ test('visitChildren()', function (t) {
   )
 
   t.test('should call `fn` for each child in `parent`', function (st) {
-    var children = [
+    const children = [
       {type: 'x', value: 0},
       {type: 'x', value: 1},
       {type: 'x', value: 2},
       {type: 'x', value: 3}
     ]
-    var context = {type: 'y', children}
-    var n = -1
+    const context = {type: 'y', children}
+    let n = -1
 
     visitChildren(function (
       /** @type {ExampleLiteral} */ child,
@@ -53,7 +53,7 @@ test('visitChildren()', function (t) {
   })
 
   t.test('should work when new children are added', function (st) {
-    var children = [
+    const children = [
       {type: 'x', value: 0},
       {type: 'x', value: 1},
       {type: 'x', value: 2},
@@ -62,7 +62,7 @@ test('visitChildren()', function (t) {
       {type: 'x', value: 5},
       {type: 'x', value: 6}
     ]
-    var n = -1
+    let n = -1
 
     visitChildren(function (
       /** @type {ExampleLiteral} */ child,
