@@ -118,7 +118,7 @@ Call the bound [`visitor`][visitor] for each child in `parent`
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types `Visitor` and `Visit`.
+It exports the additional types `Visitor<Parent>` and `Visit<Parent>`.
 
 ## Compatibility
 

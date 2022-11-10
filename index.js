@@ -1,10 +1,12 @@
 /**
- * @typedef {import('unist').Parent} Parent
- * @typedef {import('unist').Node} Node
- *
+ * @typedef {import('unist').Parent} UnistParent
+ */
+
+/**
+ * @template {UnistParent} Parent
  * @callback Visitor
  *   Callback called for each `child` in `parent` later given to `visit`.
- * @param {Node} node
+ * @param {Parent['children'][number]} node
  *   Child of `parent`.
  * @param {number} index
  *   Position of `child` in `parent`.
@@ -12,7 +14,10 @@
  *   Parent node.
  * @returns {void}
  *   Nothing.
- *
+ */
+
+/**
+ * @template {UnistParent} Parent
  * @callback Visit
  *   Function to call the bound `visitor` for each child in `parent`.
  * @param {Parent} node
@@ -25,15 +30,16 @@
  * Wrap `visitor` to be called for each child in the nodes later given to
  * `visit`.
  *
- * @param {Visitor} visitor
+ * @template {UnistParent} Parent
+ * @param {Visitor<Parent>} visitor
  *   Callback called for each `child` in `parent` later given to `visit`.
- * @returns {Visit}
+ * @returns {Visit<Parent>}
  *   Function to call the bound `visitor` for each child in `parent`.
  */
 export function visitChildren(visitor) {
   return visit
 
-  /** @type {Visit} */
+  /** @type {Visit<Parent>} */
   function visit(parent) {
     const children = parent && parent.children
     let index = -1
