@@ -18,6 +18,8 @@
 *   [Use](#use)
 *   [API](#api)
     *   [`visitChildren(visitor)`](#visitchildrenvisitor)
+    *   [`Visitor`](#visitor)
+    *   [`Visit`](#visit)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
 *   [Related](#related)
@@ -37,7 +39,7 @@ Use [`unist-util-visit`][unist-util-visit].
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, 18.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install unist-util-visit-children
@@ -46,14 +48,14 @@ npm install unist-util-visit-children
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {visitChildren} from "https://esm.sh/unist-util-visit-children@2"
+import {visitChildren} from 'https://esm.sh/unist-util-visit-children@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {visitChildren} from "https://esm.sh/unist-util-visit-children@2?bundle"
+  import {visitChildren} from 'https://esm.sh/unist-util-visit-children@2?bundle'
 </script>
 ```
 
@@ -94,37 +96,66 @@ Yields:
 
 ## API
 
-This package exports the identifier `visitChildren`.
+This package exports the identifier [`visitChildren`][api-visitchildren].
 There is no default export.
 
 ### `visitChildren(visitor)`
 
-Wrap [`visitor`][visitor] to be called for each child in the nodes later given
-to [`visit`][visit].
+Wrap `visitor` to be called for each child in the nodes later given to `visit`.
+
+###### Parameters
+
+*   `visitor` ([`Visitor`][api-visitor])
+    — callback called for each `child` in `parent` later given to `visit`
 
 ###### Returns
 
-[`Visit`][visit].
+Function to call the bound `visitor` for each child in `parent`
+([`Visit`][api-visit]).
 
-#### `visitor(child, index, parent)`
+### `Visitor`
 
-Callback called for each `child` in `parent` later given to [`visit`][visit].
+Callback called for each `child` in `parent` later given to `visit`
+(TypeScript type).
 
-#### `visit(parent)`
+###### Parameters
 
-Call the bound [`visitor`][visitor] for each child in `parent`
-([`Parent`][parent]).
+*   `child` ([`Node`][node])
+    — child of parent
+*   `index` (`number`)
+    — position of `child` in parent
+*   `parent` ([`Node`][node])
+    — parent node
+
+###### Returns
+
+Nothing (`void`).
+
+### `Visit`
+
+Function to call the bound `visitor` for each child in `parent`
+(TypeScript type).
+
+###### Parameters
+
+*   `parent` ([`Node`][node])
+    — parent node
+
+###### Returns
+
+Nothing (`void`).
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types `Visitor<Parent>` and `Visit<Parent>`.
+It exports the additional types [`Visit`][api-visit] and
+[`Visitor`][api-visitor].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Related
@@ -160,7 +191,7 @@ See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
 ways to get started.
 See [`support.md`][support] for ways to get help.
 
-This project has a [Code of Conduct][coc].
+This project has a [code of conduct][coc].
 By interacting with this repository, organisation, or community you agree to
 abide by its terms.
 
@@ -218,10 +249,12 @@ abide by its terms.
 
 [unist]: https://github.com/syntax-tree/unist
 
-[parent]: https://github.com/syntax-tree/unist#parent
+[node]: https://github.com/syntax-tree/unist#nodes
 
 [unist-util-visit]: https://github.com/syntax-tree/unist-util-visit
 
-[visit]: #visitparent
+[api-visitchildren]: #visitchildrenvisitor
 
-[visitor]: #visitorchild-index-parent
+[api-visit]: #visit
+
+[api-visitor]: #visitor
