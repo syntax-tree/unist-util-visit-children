@@ -1,16 +1,16 @@
 /**
- * @typedef {import('unist').Node} Node
  * @typedef {import('unist').Literal<number>} ExampleLiteral
  * @typedef {import('unist').Parent<ExampleLiteral>} ExampleParent
  */
 
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {visitChildren} from './index.js'
 
 function noop() {}
 
-test('visitChildren()', function (t) {
-  t.throws(
+test('visitChildren', function () {
+  assert.throws(
     function () {
       // @ts-expect-error runtime.
       visitChildren(noop)()
@@ -19,7 +19,7 @@ test('visitChildren()', function (t) {
     'should throw without arguments'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       // @ts-expect-error runtime.
       visitChildren(noop)({})
@@ -27,70 +27,64 @@ test('visitChildren()', function (t) {
     /Missing children in `parent`/,
     'should throw without parent'
   )
+})
 
-  t.test('should call `fn` for each child in `parent`', function (st) {
-    const children = [
-      {type: 'x', value: 0},
-      {type: 'x', value: 1},
-      {type: 'x', value: 2},
-      {type: 'x', value: 3}
-    ]
-    const context = {type: 'y', children}
-    let n = -1
+test('should call `fn` for each child in `parent`', function () {
+  const children = [
+    {type: 'x', value: 0},
+    {type: 'x', value: 1},
+    {type: 'x', value: 2},
+    {type: 'x', value: 3}
+  ]
+  const context = {type: 'y', children}
+  let n = -1
 
-    visitChildren(function (
-      /** @type {ExampleLiteral} */ child,
-      index,
-      /** @type {ExampleParent} */ parent
-    ) {
-      n++
-      st.strictEqual(child, children[n])
-      st.strictEqual(index, n)
-      st.strictEqual(parent, context)
-    })(context)
+  visitChildren(function (
+    /** @type {ExampleLiteral} */ child,
+    index,
+    /** @type {ExampleParent} */ parent
+  ) {
+    n++
+    assert.equal(child, children[n])
+    assert.equal(index, n)
+    assert.equal(parent, context)
+  })(context)
+})
 
-    st.end()
-  })
+test('should work when new children are added', function () {
+  const children = [
+    {type: 'x', value: 0},
+    {type: 'x', value: 1},
+    {type: 'x', value: 2},
+    {type: 'x', value: 3},
+    {type: 'x', value: 4},
+    {type: 'x', value: 5},
+    {type: 'x', value: 6}
+  ]
+  let n = -1
 
-  t.test('should work when new children are added', function (st) {
-    const children = [
-      {type: 'x', value: 0},
-      {type: 'x', value: 1},
-      {type: 'x', value: 2},
-      {type: 'x', value: 3},
-      {type: 'x', value: 4},
-      {type: 'x', value: 5},
-      {type: 'x', value: 6}
-    ]
-    let n = -1
+  visitChildren(function (
+    /** @type {ExampleLiteral} */ child,
+    index,
+    /** @type {ExampleParent} */ parent
+  ) {
+    n++
 
-    visitChildren(function (
-      /** @type {ExampleLiteral} */ child,
-      index,
-      /** @type {ExampleParent} */ parent
-    ) {
-      n++
+    if (index < 3) {
+      parent.children.push({type: 'x', value: parent.children.length})
+    }
 
-      if (index < 3) {
-        parent.children.push({type: 'x', value: parent.children.length})
-      }
-
-      st.deepEqual(child, children[n])
-      st.deepEqual(index, n)
-    })(
-      /** @type {ExampleParent} */ ({
-        type: 'y',
-        children: [
-          {type: 'x', value: 0},
-          {type: 'x', value: 1},
-          {type: 'x', value: 2},
-          {type: 'x', value: 3}
-        ]
-      })
-    )
-
-    st.end()
-  })
-
-  t.end()
+    assert.deepEqual(child, children[n])
+    assert.deepEqual(index, n)
+  })(
+    /** @type {ExampleParent} */ ({
+      type: 'y',
+      children: [
+        {type: 'x', value: 0},
+        {type: 'x', value: 1},
+        {type: 'x', value: 2},
+        {type: 'x', value: 3}
+      ]
+    })
+  )
 })
