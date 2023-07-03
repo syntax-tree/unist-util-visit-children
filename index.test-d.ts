@@ -1,6 +1,6 @@
 import {expectError, expectType} from 'tsd'
 import type {Parent, Literal} from 'unist'
-import {visitChildren} from './index.js'
+import {visitChildren} from 'unist-util-visit-children'
 
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 

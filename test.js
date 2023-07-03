@@ -5,15 +5,16 @@
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {visitChildren} from './index.js'
+import {visitChildren} from 'unist-util-visit-children'
 
 function noop() {}
 
 test('visitChildren', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
-      'visitChildren'
-    ])
+    assert.deepEqual(
+      Object.keys(await import('unist-util-visit-children')).sort(),
+      ['visitChildren']
+    )
   })
 
   await t.test('should throw without arguments', async function () {
