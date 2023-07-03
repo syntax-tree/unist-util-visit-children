@@ -42,12 +42,14 @@ interface Text extends Literal {
 /* Missing params. */
 expectError(visitChildren())
 
-visitChildren((node, _, parent: Emphasis) => {
+visitChildren(function (node, _, parent: Emphasis) {
   expectType<Phrasing>(node)
+  return undefined
 })
 
-visitChildren((node, _, parent: Root) => {
+visitChildren(function (node, _, parent: Root) {
   expectType<Flow>(node)
+  return undefined
 })
 
 /* eslint-enable @typescript-eslint/consistent-type-definitions */

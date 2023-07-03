@@ -1,90 +1,71 @@
 /**
- * @typedef {import('unist').Literal<number>} ExampleLiteral
+ * @typedef {import('unist').Literal<unknown>} ExampleLiteral
  * @typedef {import('unist').Parent<ExampleLiteral>} ExampleParent
  */
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {visitChildren} from './index.js'
-import * as mod from './index.js'
 
 function noop() {}
 
-test('visitChildren', function () {
-  assert.deepEqual(
-    Object.keys(mod).sort(),
-    ['visitChildren'],
-    'should expose the public api'
-  )
+test('visitChildren', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+      'visitChildren'
+    ])
+  })
 
-  assert.throws(
-    function () {
-      // @ts-expect-error runtime.
+  await t.test('should throw without arguments', async function () {
+    assert.throws(function () {
+      // @ts-expect-error: check that an error is thrown at runtime.
       visitChildren(noop)()
-    },
-    /Missing children in `parent`/,
-    'should throw without arguments'
-  )
+    }, /Missing children in `parent`/)
+  })
 
-  assert.throws(
-    function () {
-      // @ts-expect-error runtime.
+  await t.test('should throw without parent', async function () {
+    assert.throws(function () {
+      // @ts-expect-error: check that an error is thrown at runtime.
       visitChildren(noop)({})
-    },
-    /Missing children in `parent`/,
-    'should throw without parent'
-  )
-})
+    }, /Missing children in `parent`/)
+  })
+  await t.test('should call `fn` for each child in `parent`', function () {
+    const children = [
+      {type: 'x', value: 0},
+      {type: 'x', value: 1},
+      {type: 'x', value: 2},
+      {type: 'x', value: 3}
+    ]
+    /** @type {ExampleParent} */
+    const context = {type: 'y', children}
+    let n = -1
 
-test('should call `fn` for each child in `parent`', function () {
-  const children = [
-    {type: 'x', value: 0},
-    {type: 'x', value: 1},
-    {type: 'x', value: 2},
-    {type: 'x', value: 3}
-  ]
-  const context = {type: 'y', children}
-  let n = -1
+    visitChildren(
+      /**
+       * @param {ExampleLiteral} child
+       * @param {ExampleParent} parent
+       */
+      function (child, index, parent) {
+        n++
+        assert.equal(child, children[n])
+        assert.equal(index, n)
+        assert.equal(parent, context)
+      }
+    )(context)
+  })
 
-  visitChildren(function (
-    /** @type {ExampleLiteral} */ child,
-    index,
-    /** @type {ExampleParent} */ parent
-  ) {
-    n++
-    assert.equal(child, children[n])
-    assert.equal(index, n)
-    assert.equal(parent, context)
-  })(context)
-})
-
-test('should work when new children are added', function () {
-  const children = [
-    {type: 'x', value: 0},
-    {type: 'x', value: 1},
-    {type: 'x', value: 2},
-    {type: 'x', value: 3},
-    {type: 'x', value: 4},
-    {type: 'x', value: 5},
-    {type: 'x', value: 6}
-  ]
-  let n = -1
-
-  visitChildren(function (
-    /** @type {ExampleLiteral} */ child,
-    index,
-    /** @type {ExampleParent} */ parent
-  ) {
-    n++
-
-    if (index < 3) {
-      parent.children.push({type: 'x', value: parent.children.length})
-    }
-
-    assert.deepEqual(child, children[n])
-    assert.deepEqual(index, n)
-  })(
-    /** @type {ExampleParent} */ ({
+  await t.test('should work when new children are added', function () {
+    const children = [
+      {type: 'x', value: 0},
+      {type: 'x', value: 1},
+      {type: 'x', value: 2},
+      {type: 'x', value: 3},
+      {type: 'x', value: 4},
+      {type: 'x', value: 5},
+      {type: 'x', value: 6}
+    ]
+    /** @type {ExampleParent} */
+    const parent = {
       type: 'y',
       children: [
         {type: 'x', value: 0},
@@ -92,6 +73,24 @@ test('should work when new children are added', function () {
         {type: 'x', value: 2},
         {type: 'x', value: 3}
       ]
-    })
-  )
+    }
+    let n = -1
+
+    visitChildren(
+      /**
+       * @param {ExampleLiteral} child
+       * @param {ExampleParent} parent
+       */
+      function (child, index, parent) {
+        n++
+
+        if (index < 3) {
+          parent.children.push({type: 'x', value: parent.children.length})
+        }
+
+        assert.deepEqual(child, children[n])
+        assert.deepEqual(index, n)
+      }
+    )(parent)
+  })
 })

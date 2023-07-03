@@ -129,7 +129,7 @@ Callback called for each `child` in `parent` later given to `visit`
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `Visit`
 
@@ -143,7 +143,7 @@ Function to call the bound `visitor` for each child in `parent`
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ## Types
 
