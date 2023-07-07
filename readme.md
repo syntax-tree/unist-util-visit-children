@@ -48,14 +48,14 @@ npm install unist-util-visit-children
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {visitChildren} from 'https://esm.sh/unist-util-visit-children@2'
+import {visitChildren} from 'https://esm.sh/unist-util-visit-children@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {visitChildren} from 'https://esm.sh/unist-util-visit-children@2?bundle'
+  import {visitChildren} from 'https://esm.sh/unist-util-visit-children@3?bundle'
 </script>
 ```
 
